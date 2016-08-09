@@ -17,7 +17,12 @@ app.get('/:date', function(req, res) {
         jsonDate.unix = Date.parse(date);
     }
     
-    jsonDate.natural = date.toDateString();
+    if (date.toDateString() === "Invalid Date") {
+        jsonDate.natural = null;
+    } else {
+        jsonDate.natural = date.toDateString();
+    }
+    
     
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(jsonDate));
