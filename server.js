@@ -1,9 +1,12 @@
 var http = require('http');
+var path = require('path');
 
 var express = require('express');
 var app = express();
 
 var server = http.createServer(app);
+
+app.use(express.static(path.resolve(__dirname, 'client')));
 
 app.get('/:date', function(req, res) {
     var date;
@@ -22,7 +25,6 @@ app.get('/:date', function(req, res) {
     } else {
         jsonDate.natural = date.toDateString();
     }
-    
     
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(jsonDate));
